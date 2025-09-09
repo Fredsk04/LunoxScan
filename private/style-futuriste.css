@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  background: #0a0a0a;
+  color: #e0e0ff;
+  font-family: 'Orbitron', sans-serif;
+  background-image: radial-gradient(circle, #3a0ca3 0%, #000 100%);
+}
+
+.nav-futuriste {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(20, 20, 30, 0.8);
+  padding: 10px 30px;
+  box-shadow: 0 0 15px #6a00ff;
+  backdrop-filter: blur(10px);
+}
+
+.nav-futuriste .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #bb86fc;
+  text-shadow: 0 0 5px #9f53ff;
+}
+
+.nav-futuriste ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.nav-futuriste li a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: 0.3s;
+  font-size: 14px;
+}
+
+.nav-futuriste li a:hover {
+  background-color: #6a00ff;
+  border-color: #bb86fc;
+  color: #fff;
+  box-shadow: 0 0 10px #bb86fc;
+}
+
+main {
+  text-align: center;
+  margin-top: 100px;
+  animation: fadein 2s ease-out;
+}
+
+@keyframes fadein {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.profil-page {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.profil-page .username {
+  color: #bb86fc;
+  text-shadow: 0 0 5px #bb86fc;
+}
+
+.actions {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.patreon-btn, .logout-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.patreon-btn {
+  background-color: #ff424d;
+  color: white;
+  box-shadow: 0 0 10px #ff424d;
+}
+
+.patreon-btn:hover {
+  background-color: #ff6375;
+  box-shadow: 0 0 20px #ff7585;
+}
+
+.logout-btn {
+  background-color: #6a00ff;
+  color: white;
+  box-shadow: 0 0 10px #6a00ff;
+}
+
+.logout-btn:hover {
+  background-color: #7e32ff;
+  box-shadow: 0 0 20px #9f53ff;
+}

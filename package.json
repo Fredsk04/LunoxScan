@@ -1,0 +1,36 @@
+{
+  "name": "lunox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lunoxscan_server.js",
+  "scripts": {
+    "start": "node lunoxscan_server.js",
+    "dev": "nodemon lunoxscan_server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Christian21210/lunox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Christian21210/lunox/issues"
+  },
+  "homepage": "https://github.com/Christian21210/lunox#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-flash": "^0.1.1",
+    "crypto": "^1.0.1",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "express-flash": "^0.0.2",
+    "express-rate-limit": "^8.0.1",
+    "express-session": "^1.18.1",
+    "mysql2": "^3.14.2",
+    "nodemailer": "^7.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
