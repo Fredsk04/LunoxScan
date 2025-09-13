@@ -1,8 +1,9 @@
+import Navbar from "@/components/Navbar"
 
 export default function Home(){
   return(
     <>
-    <p>Bienvenu sur LunuxScan</p>
+    <Navbar></Navbar>
     </>
   )
 }
