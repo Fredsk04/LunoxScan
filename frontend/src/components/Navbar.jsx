@@ -8,10 +8,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Ajouter/retirer la classe no-scroll sur le body
     document.body.classList.toggle("no-scroll", isOpen);
-
-    // Fermer le menu avec la touche Escape
     const handleEsc = (e) => {
       if (e.key === "Escape") {
         setIsOpen(false);
@@ -22,7 +19,6 @@ const Navbar = () => {
     
     return () => {
       document.removeEventListener("keydown", handleEsc);
-      // Nettoyer la classe no-scroll au démontage
       document.body.classList.remove("no-scroll");
     };
   }, [isOpen]);
@@ -37,7 +33,7 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Header */}
+
       <header className="header">
         <div className="header-left">
           <div className="logo">
@@ -66,7 +62,6 @@ const Navbar = () => {
         </div>
 
         <nav className="navbar">
-          {/* Menu principal - toujours visible */}
           <ul className="nav-menu">
             <li className="nav-item">
               <Link href="/catalogue" className="nav-link">
@@ -79,8 +74,6 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-
-          {/* Hamburger - toujours visible */}
           <div
             className={`hamburger ${isOpen ? "active" : ""}`}
             onClick={toggleMenu}
@@ -92,8 +85,6 @@ const Navbar = () => {
           </div>
         </nav>
       </header>
-
-      {/* Sidebar */}
       <div className={`sidebar ${isOpen ? "open" : ""}`}>
         <span 
           className="close-btn" 
@@ -140,8 +131,6 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-
-      {/* Overlay */}
       <div
         className={`overlay ${isOpen ? "show" : ""}`}
         onClick={closeMenu}
