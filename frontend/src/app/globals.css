@@ -20,7 +20,7 @@ header {
   justify-content: space-between;
   height: 100px;
   padding: 0 8%;
-  background: linear-gradient(60deg, #962fbf, #4f5bd5);
+  background: linear-gradient(60deg, #6366f1, #4f5bd5);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   z-index: 10;
 }

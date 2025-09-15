@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className="header-left">
           <div className="logo">
             <Link href="/">
-              <img src="/image/lunox scan logo.png" alt="Lunox Scan Logo" />
+              <img src="/img/lunoxscan_site_logo_resize.png" alt="Lunox Scan Logo" />
             </Link>
           </div>
           <a
