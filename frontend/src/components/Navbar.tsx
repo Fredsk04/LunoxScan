@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { FaDiscord, FaInstagram, FaUser, FaHome, FaBook } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
