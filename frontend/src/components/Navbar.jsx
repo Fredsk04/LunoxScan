@@ -74,17 +74,17 @@ const Navbar = () => {
                 Catalogue
               </Link>
             </li>
-            <li className="nav-item">
-              <button onClick={toggleSearch} className="nav-link search-btn">
-                {searchOpen ? <FaTimes /> : <FaSearch />}
-              </button>
-            </li>
-            <li className="nav-item">
-              <Link href="/profile" className="nav-link">
-                <FaUser />
-              </Link>
-            </li>
           </ul>
+
+          <button onClick={toggleSearch} className="nav-link search-btn">
+            <FaSearch />
+          </button>
+
+          <div className="desktop-only profile-icon">
+            <Link href="/profile" className="nav-link">
+              <FaUser />
+            </Link>
+          </div>
 
           <div
             className={`hamburger ${isOpen ? "active" : ""}`}
