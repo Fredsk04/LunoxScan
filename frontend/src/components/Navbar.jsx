@@ -1,17 +1,19 @@
 'use client';
 import { useState, useEffect } from "react";
 import "./nav.css";
-import { FaDiscord, FaInstagram, FaUser, FaHome, FaBook } from "react-icons/fa";
+import { FaDiscord, FaInstagram, FaUser, FaHome, FaBook, FaSearch, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     document.body.classList.toggle("no-scroll", isOpen);
     const handleEsc = (e) => {
       if (e.key === "Escape") {
         setIsOpen(false);
+        setSearchOpen(false);
       }
     };
 
@@ -31,10 +33,14 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
+  const toggleSearch = () => {
+    setSearchOpen(!searchOpen);
+  };
+
   return (
     <>
 
-      <header className="header">
+      <header className={`header ${searchOpen ? "search-active" : ""}`}>
         <div className="header-left">
           <div className="logo">
             <Link href="/">
@@ -69,11 +75,17 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <button onClick={toggleSearch} className="nav-link search-btn">
+                {searchOpen ? <FaTimes /> : <FaSearch />}
+              </button>
+            </li>
+            <li className="nav-item">
               <Link href="/profile" className="nav-link">
                 <FaUser />
               </Link>
             </li>
           </ul>
+
           <div
             className={`hamburger ${isOpen ? "active" : ""}`}
             onClick={toggleMenu}
@@ -85,6 +97,11 @@ const Navbar = () => {
           </div>
         </nav>
       </header>
+
+      <div className={`search-bar ${searchOpen ? "open" : ""}`}>
+        <input type="text" placeholder="Rechercher un manga..."/>
+      </div>
+
       <div className={`sidebar ${isOpen ? "open" : ""}`}>
         <span 
           className="close-btn" 

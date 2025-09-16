@@ -23,7 +23,7 @@ body.no-scroll {
   justify-content: space-between;
   height: 100px;
   padding: 0 8%;
-  background: linear-gradient(60deg, #962fbf, #4f5bd5);
+  background: linear-gradient(60deg, #381c56, #6b21a8, #1e3a8a);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   z-index: 10;
   position: relative;
@@ -318,4 +318,35 @@ body.no-scroll {
     font-size: 14px;
     padding: 8px 10px;
   }
+}
+
+.search-bar {
+  max-height: 0;
+  overflow: hidden;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  transition: max-height 0.4s ease-in-out, padding 0.3s ease;
+  padding: 0 1rem;
+}
+
+.search-bar.open {
+  max-height: 70px;
+  padding: 1rem;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 600px;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: white;
 }
