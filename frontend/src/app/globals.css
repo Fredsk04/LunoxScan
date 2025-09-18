@@ -11,6 +11,7 @@ body {
   position: relative;
   height: auto;
   overflow: auto;
+  background: black;
 }
 
 /* Header */

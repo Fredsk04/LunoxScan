@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="header-left">
           <div className="logo">
             <Link href="/">
-              <img src="/img/lunoxscan_site_logo_resize.png" alt="Lunox Scan Logo" />
+              <img src="/img/lunoxscan_site_logo.png" alt="LunoxScan Logo" />
             </Link>
           </div>
           <a
@@ -71,6 +71,7 @@ const Navbar = () => {
           <ul className="nav-menu">
             <li className="nav-item">
               <Link href="/catalogue" className="nav-link">
+                <img src="/img/catalogue icon.png" alt="catalogue logo" />
                 Catalogue
               </Link>
             </li>
@@ -99,7 +100,11 @@ const Navbar = () => {
       </header>
 
       <div className={`search-bar ${searchOpen ? "open" : ""}`}>
-        <input type="text" placeholder="Rechercher un manga..."/>
+        <input type="text"
+          placeholder="Rechercher un manga..."
+          className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+          autoFocus
+        />
       </div>
 
       <div className={`sidebar ${isOpen ? "open" : ""}`}>
