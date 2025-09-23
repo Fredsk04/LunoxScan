@@ -6,11 +6,39 @@ const Login = ({ onSwitchToRegister }) => {
     password: ''
   });
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Connexion:', formData);
-    
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:4000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Erreur de connexion");
+      } else {
+        // Sauvegarder le token si rememberMe est coché
+        if (rememberMe) {
+          localStorage.setItem("token", data.token);
+        } else {
+          sessionStorage.setItem("token", data.token);
+        }
+        alert("Connexion réussie ✅");
+      }
+    } catch (err) {
+      setError("Impossible de contacter le serveur");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -26,7 +54,7 @@ const Login = ({ onSwitchToRegister }) => {
         <i className="fas fa-sign-in-alt"></i> Connexion
       </h2>
       
-      <div onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="identifier"
@@ -48,7 +76,7 @@ const Login = ({ onSwitchToRegister }) => {
         <button type="submit" onClick={handleSubmit}>
           Se connecter
         </button>
-      </div>
+      </form>
       
       <label style={{fontSize: '14px', marginTop: '10px', display: 'block'}}>
         <input
@@ -56,12 +84,11 @@ const Login = ({ onSwitchToRegister }) => {
           checked={rememberMe}
           onChange={(e) => setRememberMe(e.target.checked)}
           style={{marginRight: '5px'}}
-        />
-        Se souvenir de moi
+        />Se souvenir de moi
       </label>
       
       <p style={{marginTop: '10px', fontSize: '14px'}}>
-        <a href="#" style={{color: 'burlywood', textDecoration: 'none', fontWeight: 'bold'}}>
+        <a href="#" style={{color: '#6b21a8', textDecoration: 'none', fontWeight: 'bold'}}>
           Mot de passe oublié ?
         </a>
       </p>

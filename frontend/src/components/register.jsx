@@ -57,11 +57,34 @@ const Register = ({ onSwitchToLogin }) => {
     return Object.values(newErrors).every((err) => !err);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Inscription réussie:", formData);
-      // Ici on pourras envoyez les données à la database ou au backend
+      try {
+        const response = await fetch("http://localhost:4000/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert(data.message || "Erreur lors de l'inscription ❌");
+        } else {
+          // Sauvegarde du token ou redirection
+          if (rememberMe) {
+            localStorage.setItem("token", data.token);
+          } else {
+            sessionStorage.setItem("token", data.token);
+          }
+          alert("Inscription réussie ✅");
+          onSwitchToLogin(); // Redirige vers la page login
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Impossible de contacter le serveur");
+      }
     }
   };
 
