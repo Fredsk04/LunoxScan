@@ -276,16 +276,19 @@ body.no-scroll {
   padding: 1rem 0;
 }
 
+/* Barre de recherche */
 .search-bar input {
-  width: 100%;
+  width: 100%; /* prend 90% de la largeur de l'écran */
+  max-width: 600px; /* limite sur grand écran */
   background: transparent;
-  max-width: 600px;
   padding: 0.6rem 1rem;
   border-radius: 30px;
   border: 1px solid #8b5cf6;
   outline: none;
   font-size: 1rem;
   color: white;
+  text-transform: uppercase; /* majuscules */
+  transition: all 0.3s ease;
 }
 
 .search-bar input:focus {
@@ -340,6 +343,10 @@ body.no-scroll {
   .nav-link {
     font-size: 14px;
     padding: 8px 10px;
+  }
+
+  .search-bar input {
+    width: 90%;
   }
 
   .search-btn {

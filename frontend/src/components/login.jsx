@@ -18,7 +18,7 @@ const Login = ({ onSwitchToRegister }) => {
       const response = await fetch("http://localhost:4000/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, rememberMe }),
       });
 
       const data = await response.json();
@@ -26,13 +26,13 @@ const Login = ({ onSwitchToRegister }) => {
       if (!response.ok) {
         setError(data.message || "Erreur de connexion");
       } else {
-        // Sauvegarder le token si rememberMe est coché
         if (rememberMe) {
           localStorage.setItem("token", data.token);
         } else {
           sessionStorage.setItem("token", data.token);
         }
         alert("Connexion réussie ✅");
+        window.location.href = "/";
       }
     } catch (err) {
       setError("Impossible de contacter le serveur");
@@ -72,21 +72,50 @@ const Login = ({ onSwitchToRegister }) => {
           onChange={handleChange}
           required
         />
-        
-        <button type="submit" onClick={handleSubmit}>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "10px",
+            fontSize: "14px",
+            gap: "6px",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <input
+            type="checkbox"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+            style={{
+              margin: 0,
+              padding: 0,
+              width: "14px",
+              height: "14px",
+              accentColor: "#7C3AED",
+            }}
+          />
+          <label htmlFor="rememberMe"
+            style={{
+              cursor: "pointer",
+              userSelect: "none",
+              margin: 0,
+              color: "#333",
+            }}>
+            Se souvenir de moi
+          </label>
+        </div>
+
+        <button type="submit" onClick={handleSubmit}
+          style={{
+            marginTop: "10px",
+          }}
+        >
           Se connecter
         </button>
       </form>
-      
-      <label style={{fontSize: '14px', marginTop: '10px', display: 'block'}}>
-        <input
-          type="checkbox"
-          checked={rememberMe}
-          onChange={(e) => setRememberMe(e.target.checked)}
-          style={{marginRight: '5px'}}
-        />Se souvenir de moi
-      </label>
-      
+
       <p style={{marginTop: '10px', fontSize: '14px'}}>
         <a href="#" style={{color: '#6b21a8', textDecoration: 'none', fontWeight: 'bold'}}>
           Mot de passe oublié ?

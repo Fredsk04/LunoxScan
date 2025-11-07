@@ -64,7 +64,7 @@ const Register = ({ onSwitchToLogin }) => {
         const response = await fetch("http://localhost:4000/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({ ...formData, rememberMe }),
         });
 
         const data = await response.json();
@@ -79,7 +79,7 @@ const Register = ({ onSwitchToLogin }) => {
             sessionStorage.setItem("token", data.token);
           }
           alert("Inscription réussie ✅");
-          onSwitchToLogin(); // Redirige vers la page login
+          window.location.href = "/";
         }
       } catch (error) {
         console.error(error);
@@ -158,24 +158,46 @@ const Register = ({ onSwitchToLogin }) => {
           </ul>
         )}
 
-        <label
+        <div
           style={{
-            fontSize: "14px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             marginTop: "10px",
-            display: "block",
+            fontSize: "14px",
+            gap: "6px",
+            whiteSpace: "nowrap",
           }}
         >
           <input
             type="checkbox"
             checked={rememberMe}
             onChange={(e) => setRememberMe(e.target.checked)}
-            style={{ marginRight: "5px" }}
+            style={{
+              margin: 0,
+              padding: 0,
+              width: "14px",
+              height: "14px",
+              accentColor: "#7C3AED",
+            }}
           />
-          Se souvenir de moi
-        </label>
+          <label htmlFor="rememberMe"
+            style={{
+              cursor: "pointer",
+              userSelect: "none",
+              margin: 0,
+              color: "#333",
+            }}>
+            Se souvenir de moi
+          </label>
+        </div>
 
         {/* Le bouton est désactivé si email ou mot de passe incomplets */}
-        <button type="submit" disabled={!emailComplete || !passwordComplete}>
+        <button type="submit" disabled={!emailComplete || !passwordComplete}
+          style={{
+            marginTop: "10px",
+          }}
+        >
           S'inscrire
         </button>
       </form>

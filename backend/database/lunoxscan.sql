@@ -7,6 +7,7 @@ CREATE TABLE users (
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
+    google_id VARCHAR(355),
     avatar_url VARCHAR(255),
     role ENUM('user', 'admin', 'staff') DEFAULT 'user',
     subscription ENUM('free', 'star1', 'star2', 'star3') DEFAULT 'free',
@@ -106,3 +107,5 @@ CREATE INDEX idx_ratings_value ON ratings(rating);
 CREATE INDEX idx_chapters_date ON chapters(manga_id, release_date);
 
 CREATE INDEX idx_reviews_date ON reviews(manga_id, created_at);
+
+ALTER TABLE mangas ADD COLUMN banner_url VARCHAR(255) AFTER cover_url;
