@@ -1,13 +1,14 @@
 import Navbar from "@/components/Navbar"
-import Carousel from "@/components/Carousel"
+import HeroCarousel from "@/components/HeroCarousel"
+import Footer from "@/components/Footer";
 
 
 export default function Home() {
   return(
     <>
     <Navbar></Navbar>
-    <Carousel></Carousel>
-
+    <HeroCarousel mangas={[]}/>
+    <Footer/>
     </>
   );
 }
