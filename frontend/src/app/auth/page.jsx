@@ -8,7 +8,8 @@ Ainsi on peut switcher facilement sans changer de page
 
 
 "use client"
-import React, { useState, useEffect } from 'react';   
+import React, { useState, useEffect } from 'react';
+import { useRouter } from "next/navigation";   
 import Register from '../../components/register';
 import Login from '../../components/login';
 import "./auth.css"
@@ -17,7 +18,7 @@ import "./auth.css"
 const Authentification = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [flashMessage, setFlashMessage] = useState('');
-
+  const router = useRouter();
 
   const switchToLogin = () => {
     setIsLogin(true);
@@ -25,6 +26,10 @@ const Authentification = () => {
 
   const switchToRegister = () => {
     setIsLogin(false);
+  };
+
+  const goBack = () => {
+    router.back(); // revient à la page précédente
   };
 
   return (
@@ -57,9 +62,9 @@ const Authentification = () => {
         )}
         
         {/* Bouton retour */}
-        <a href="/" className="back-btn">
+        <button href="/" className="back-btn" onClick={goBack}>
           <i className="fas fa-arrow-left"></i> Retour
-        </a>
+        </button>
       </div>
     </>
   );

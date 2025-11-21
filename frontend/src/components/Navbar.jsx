@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
-import "./nav.css";
+import "./styles/nav.css";
 import { FaDiscord, FaInstagram, FaUser, FaHome, FaBook, FaSearch, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 

@@ -18,19 +18,19 @@ CREATE TABLE users (
 CREATE TABLE mangas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
+    title2 VARCHAR(255) NOT NULL,
     description TEXT,
     cover_url VARCHAR(255),
     views INT DEFAULT 0,
     status ENUM('en_cours', 'terminé', 'abandonné') DEFAULT 'en_cours',
-    author VARCHAR(100),
-    artist VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE genres (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL
+    name VARCHAR(50) UNIQUE NOT NULL,
+    image_url TEXT NOT NULL
 );
 
 CREATE TABLE mangas_genres (

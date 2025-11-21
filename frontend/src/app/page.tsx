@@ -6,9 +6,9 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return(
     <>
-    <Navbar></Navbar>
-    <HeroCarousel mangas={[]}/>
-    <Footer/>
+      <Navbar></Navbar>
+      <HeroCarousel mangas={[]}/>
+      <Footer/>
     </>
   );
 }

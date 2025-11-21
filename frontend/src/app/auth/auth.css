@@ -12,6 +12,7 @@
           background: linear-gradient(135deg, black, #6b21a8);
           background-size: cover;
           background-position: center;
+          color: black;
           position: relative;
           height: 100vh;
           margin: 0;
