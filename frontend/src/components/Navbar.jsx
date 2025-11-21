@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
-import "./nav.css";
+import "./styles/nav.css";
 import { FaDiscord, FaInstagram, FaUser, FaHome, FaBook, FaSearch, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 
@@ -82,7 +82,7 @@ const Navbar = () => {
           </button>
 
           <div className="desktop-only profile-icon">
-            <Link href="/profile" className="nav-link">
+            <Link href="/auth" className="nav-link">
               <FaUser />
             </Link>
           </div>
@@ -100,9 +100,21 @@ const Navbar = () => {
       </header>
 
       <div className={`search-bar ${searchOpen ? "open" : ""}`}>
-        <input type="text"
+        <input
+          type="text"
           placeholder="Rechercher un manga..."
-          className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+          className="
+      w-[90%] sm:w-3/4 md:w-1/2 lg:w-1/3
+      pl-10 pr-4 py-2
+      bg-white/10 border border-purple-500/40
+      rounded-full text-white placeholder-gray-400
+      focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent
+      uppercase tracking-wide
+      transition-all duration-300
+    "
+          style={{
+            textTransform: "uppercase",
+          }}
           autoFocus
         />
       </div>
@@ -147,7 +159,7 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <Link href="/profile" onClick={closeMenu}>
+            <Link href="/auth" onClick={closeMenu}>
               <FaUser /> Profil
             </Link>
           </li>

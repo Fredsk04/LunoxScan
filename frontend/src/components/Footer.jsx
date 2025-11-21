@@ -1,5 +1,5 @@
-import { FaDiscord, FaInstagram} from "react-icons/fa";
-import "./footer.css";
+import { FaDiscord, FaInstagram, FaTiktok } from "react-icons/fa";
+import "./styles/footer.css";
 import Link from "next/link";
 
 const Footer = () => {
