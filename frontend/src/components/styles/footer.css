@@ -1,0 +1,34 @@
+.footer {
+  background: #000;
+  color: #bbb;
+  text-align: center;
+  padding: 2rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 1.4rem;
+}
+
+.footer-links a {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #9d4edd;
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  color: #aaa;
+}

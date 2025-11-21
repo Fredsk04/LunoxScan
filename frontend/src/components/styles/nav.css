@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+}
+
+/* Ajout de la classe no-scroll pour empêcher le scroll */
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  padding: 0 8%;
+  background: linear-gradient(60deg, #381c56, #6b21a8, #1e3a8a);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  position: relative;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  user-select: none;
+  display: flex;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.logo img {
+  height: 60px; /* Ajustez selon vos besoins */
+  width: auto;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.discord-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #5865F2;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 18px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+}
+
+.discord-btn:hover {
+  background-color: #4752c4;
+}
+
+.insta-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 16px;
+  color: white;
+  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+  border-radius: 18px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  font-size: 18px;
+}
+
+.insta-btn:hover {
+  opacity: 0.8;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  list-style: none;
+}
+
+.nav-item {
+  list-style: none;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link:hover {
+  color: burlywood;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  margin-left: 20px;
+  z-index: 1000;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(11px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 300px;
+  height: 100vh;
+  background: linear-gradient(160deg, #962fbf, #4f5bd5);
+  color: white;
+  transition: left 0.3s ease;
+  z-index: 999;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.close-btn {
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin-top: 80px;
+}
+
+.sidebar-menu li {
+  margin: 20px 0;
+}
+
+.sidebar-menu li a {
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: burlywood;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 998;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Responsive Design - CORRECTION CRITIQUE */
+@media screen and (max-width: 1000px) {
+  .header {
+    padding: 0 4%;
+  }
+  
+  .header-left {
+    gap: 8px;
+  }
+  
+  /* FORCER LA DISPARITION DU MENU PRINCIPAL SUR MOBILE */
+  .nav-menu {
+    display: none !important;
+  }
+  
+  /* FORCER L'APPARITION DU HAMBURGER SUR MOBILE */
+  .hamburger {
+    display: flex !important;
+  }
+  
+  /* Réduire la taille des boutons sociaux sur mobile */
+  .discord-btn,
+  .insta-btn {
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+}
+
+.search-bar {
+  max-height: 0;
+  overflow: hidden;
+  background: black;
+  transition: max-height 0.5s ease-in-out, padding 0.5s ease;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar.open {
+  max-height: 80px;
+  padding: 1rem 0;
+}
+
+/* Barre de recherche */
+.search-bar input {
+  width: 100%; /* prend 90% de la largeur de l'écran */
+  max-width: 600px; /* limite sur grand écran */
+  background: transparent;
+  padding: 0.6rem 1rem;
+  border-radius: 30px;
+  border: 1px solid #8b5cf6;
+  outline: none;
+  font-size: 1rem;
+  color: white;
+  text-transform: uppercase; /* majuscules */
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  border: 2px solid #8b5cf6;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 1rem;
+}
+
+.desktop-only {
+  display: inline-flex;
+}
+
+@media screen and (max-width: 1000px) {
+  .header {
+    padding: 0 2%;
+  }
+  
+  .header-left {
+    gap: 4px;
+  }
+  
+  .discord-btn,
+  .insta-btn {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+  
+  .sidebar {
+    width: 260px;
+  }
+  
+  /* Garder le menu et hamburger visibles sur très petits écrans */
+  .nav-menu {
+    display: flex;
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+  
+  /* Ajuster la taille du menu sur très petits écrans */
+  .nav-link {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .search-bar input {
+    width: 90%;
+  }
+
+  .search-btn {
+    font-size: 1.6rem;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+}
+
