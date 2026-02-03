@@ -1,0 +1,342 @@
+/* [project]/src/components/styles/nav.css [app-client] (css) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+}
+
+body {
+  position: relative;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+.header {
+  z-index: 10;
+  background: linear-gradient(60deg, #381c56, #6b21a8, #1e3a8a);
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 0 8%;
+  display: flex;
+  position: relative;
+  box-shadow: 0 4px 6px #00000080;
+}
+
+.header-left {
+  align-items: center;
+  gap: 10px;
+  display: flex;
+}
+
+.logo {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  transition: opacity .3s;
+  display: flex;
+}
+
+.logo img {
+  width: auto;
+  height: 60px;
+}
+
+.logo:hover {
+  opacity: .8;
+}
+
+.discord-btn {
+  color: #fff;
+  background-color: #5865f2;
+  border-radius: 18px;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 16px;
+  font-size: 18px;
+  text-decoration: none;
+  transition: background-color .3s;
+  display: flex;
+}
+
+.discord-btn:hover {
+  background-color: #4752c4;
+}
+
+.insta-btn {
+  color: #fff;
+  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+  border-radius: 18px;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 16px;
+  font-size: 18px;
+  text-decoration: none;
+  transition: opacity .3s;
+  display: flex;
+}
+
+.insta-btn:hover {
+  opacity: .8;
+}
+
+.navbar {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.nav-menu {
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  list-style: none;
+  display: flex;
+}
+
+.nav-item {
+  list-style: none;
+}
+
+.nav-link {
+  color: #fff;
+  border-radius: 8px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all .3s;
+  display: flex;
+}
+
+.nav-link:hover {
+  color: #deb887;
+  background-color: #ffffff1a;
+}
+
+.hamburger {
+  cursor: pointer;
+  z-index: 1000;
+  flex-direction: column;
+  margin-left: 20px;
+  display: none;
+}
+
+.bar {
+  background-color: #fff;
+  width: 25px;
+  height: 3px;
+  margin: 4px 0;
+  transition: all .3s ease-in-out;
+}
+
+.hamburger.active .bar:first-child {
+  transform: translateY(11px)rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-11px)rotate(-45deg);
+}
+
+.sidebar {
+  color: #fff;
+  z-index: 999;
+  background: linear-gradient(160deg, #962fbf, #4f5bd5);
+  width: 300px;
+  height: 100vh;
+  padding: 20px;
+  transition: left .3s;
+  position: fixed;
+  top: 0;
+  left: -300px;
+  box-shadow: 2px 0 5px #0000004d;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.close-btn {
+  color: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  transition: background-color .3s;
+  display: flex;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.close-btn:hover {
+  background-color: #ffffff1a;
+}
+
+.sidebar-menu {
+  margin-top: 80px;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-menu li {
+  margin: 20px 0;
+}
+
+.sidebar-menu li a {
+  color: #fff;
+  border-radius: 8px;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 10px;
+  font-size: 18px;
+  text-decoration: none;
+  transition: all .3s;
+  display: flex;
+}
+
+.sidebar-menu li a:hover {
+  color: #deb887;
+  background-color: #ffffff1a;
+}
+
+.overlay {
+  opacity: 0;
+  visibility: hidden;
+  z-index: 998;
+  background: #00000080;
+  transition: all .3s;
+  position: fixed;
+  inset: 0;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media screen and (max-width: 1000px) {
+  .header {
+    padding: 0 4%;
+  }
+
+  .header-left {
+    gap: 8px;
+  }
+
+  .nav-menu {
+    display: none !important;
+  }
+
+  .hamburger {
+    display: flex !important;
+  }
+
+  .discord-btn, .insta-btn {
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+}
+
+.search-bar {
+  background: #000;
+  justify-content: center;
+  align-items: center;
+  max-height: 0;
+  padding: 0;
+  transition: max-height .5s ease-in-out, padding .5s;
+  display: flex;
+  overflow: hidden;
+}
+
+.search-bar.open {
+  max-height: 80px;
+  padding: 1rem 0;
+}
+
+.search-bar input {
+  color: #fff;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid #8b5cf6;
+  border-radius: 30px;
+  outline: none;
+  width: 100%;
+  max-width: 600px;
+  padding: .6rem 1rem;
+  font-size: 1rem;
+  transition: all .3s;
+}
+
+.search-bar input:focus {
+  border: 2px solid #8b5cf6;
+}
+
+.search-btn {
+  cursor: pointer;
+  color: #fff;
+  background: none;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem;
+  font-size: 1.4rem;
+  display: flex;
+}
+
+.desktop-only {
+  display: inline-flex;
+}
+
+@media screen and (max-width: 1000px) {
+  .header {
+    padding: 0 2%;
+  }
+
+  .header-left {
+    gap: 4px;
+  }
+
+  .discord-btn, .insta-btn {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .sidebar {
+    width: 260px;
+  }
+
+  .nav-menu, .hamburger {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .search-bar input {
+    width: 90%;
+  }
+
+  .search-btn {
+    font-size: 1.6rem;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=src_components_styles_nav_css_bad6b30c._.single.css.map*/

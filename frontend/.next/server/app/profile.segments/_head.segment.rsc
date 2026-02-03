@@ -1,0 +1,8 @@
+1:"$Sreact.fragment"
+2:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"ViewportBoundary"]
+4:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"MetadataBoundary"]
+5:"$Sreact.suspense"
+7:I[27201,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"IconMark"]
+0:{"buildId":"kzSgIe_nXzZKPL8v07DDx","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"loading":null,"isPartial":false}
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+6:[["$","title","0",{"children":"LunoxScan"}],["$","meta","1",{"name":"description","content":"Read your scan instantly"}],["$","link","2",{"rel":"manifest","href":"/favicon/site.webmanifest"}],["$","link","3",{"rel":"shortcut icon","href":"/favicon/favicon.ico"}],["$","link","4",{"rel":"icon","href":"/favicon/favicon.ico"}],["$","link","5",{"rel":"icon","href":"/favicon/favicon-96x96.png","sizes":"96x96","type":"image/png"}],["$","link","6",{"rel":"icon","href":"/favicon/web-app-manifest-192x192.png","sizes":"192x192","type":"image/png"}],["$","link","7",{"rel":"icon","href":"/favicon/web-app-manifest-512x512.png","sizes":"512x512","type":"image/png"}],["$","link","8",{"rel":"icon","href":"/favicon/favicon.svg","type":"image/svg+xml"}],["$","link","9",{"rel":"apple-touch-icon","href":"/favicon/apple-touch-icon.png","sizes":"180x180"}],["$","$L7","10",{}]]
