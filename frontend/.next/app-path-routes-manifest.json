@@ -1,0 +1,17 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/admin/analytics/page": "/admin/analytics",
+  "/admin/dashboard/page": "/admin/dashboard",
+  "/admin/manga/new/page": "/admin/manga/new",
+  "/admin/settings/page": "/admin/settings",
+  "/admin/users/page": "/admin/users",
+  "/auth/page": "/auth",
+  "/catalogue/page": "/catalogue",
+  "/community/page": "/community",
+  "/originals/page": "/originals",
+  "/page": "/",
+  "/premium/page": "/premium",
+  "/profile/page": "/profile",
+  "/series/[id]/page": "/series/[id]"
+}

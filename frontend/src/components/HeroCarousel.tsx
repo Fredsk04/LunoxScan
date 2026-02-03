@@ -15,8 +15,7 @@ export const HeroCarousel = () => {
         const res = await fetch("http://localhost:4000/api/mangas");
         if (res.ok) {
           const data = await res.json();
-          // Get first 3 mangas for carousel
-          setSlides(data.slice(0, 3));
+          setSlides(data.slice(0, 6));
         }
       } catch (e) {
         console.error(e);
