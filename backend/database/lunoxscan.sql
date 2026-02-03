@@ -1,7 +1,12 @@
-CREATE DATABASE IF NOT EXISTS lunoxscan
-
+-- ==============================
+--        CREATE DATABASE
+-- ==============================
+CREATE DATABASE IF NOT EXISTS lunoxscan;
 USE lunoxscan;
 
+-- ==============================
+--        TABLE : USERS
+-- ==============================
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -9,30 +14,42 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     google_id VARCHAR(355),
     avatar_url VARCHAR(255),
+    bio TEXT NULL,
     role ENUM('user', 'admin', 'staff') DEFAULT 'user',
-    subscription ENUM('free', 'star1', 'star2', 'star3') DEFAULT 'free',
+    subscription ENUM('free', 'epique', 'legende', 'mythic') DEFAULT 'free',
+    subscription_end DATE NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- ==============================
+--        TABLE : MANGAS
+-- ==============================
 CREATE TABLE mangas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     title2 VARCHAR(255) NOT NULL,
     description TEXT,
     cover_url VARCHAR(255),
+    banner_url VARCHAR(255),
     views INT DEFAULT 0,
     status ENUM('en_cours', 'terminé', 'abandonné') DEFAULT 'en_cours',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- ==============================
+--        TABLE : GENRES
+-- ==============================
 CREATE TABLE genres (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
     image_url TEXT NOT NULL
 );
 
+-- ==============================
+--  TABLE : MANGAS <-> GENRES
+-- ==============================
 CREATE TABLE mangas_genres (
     manga_id INT NOT NULL,
     genre_id INT NOT NULL,
@@ -41,6 +58,9 @@ CREATE TABLE mangas_genres (
     FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE
 );
 
+-- ==============================
+--        TABLE : CHAPTERS
+-- ==============================
 CREATE TABLE chapters (
     id INT AUTO_INCREMENT PRIMARY KEY,
     manga_id INT NOT NULL,
@@ -56,6 +76,9 @@ CREATE TABLE chapters (
     FOREIGN KEY (manga_id) REFERENCES mangas(id) ON DELETE CASCADE
 );
 
+-- ==============================
+--       TABLE : CHAPTER PAGES
+-- ==============================
 CREATE TABLE chapter_pages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     chapter_id INT NOT NULL,
@@ -69,6 +92,9 @@ CREATE TABLE chapter_pages (
     FOREIGN KEY (chapter_id) REFERENCES chapters(id) ON DELETE CASCADE
 );
 
+-- ==============================
+--       TABLE : RATINGS
+-- ==============================
 CREATE TABLE ratings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -81,6 +107,9 @@ CREATE TABLE ratings (
     FOREIGN KEY (manga_id) REFERENCES mangas(id) ON DELETE CASCADE
 );
 
+-- ==============================
+--        TABLE : REVIEWS
+-- ==============================
 CREATE TABLE reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -91,7 +120,52 @@ CREATE TABLE reviews (
     FOREIGN KEY (manga_id) REFERENCES mangas(id) ON DELETE CASCADE
 );
 
+-- ==============================
+--        TABLE : WATCHLIST
+-- ==============================
+CREATE TABLE watchlist (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    manga_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_watch (user_id, manga_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (manga_id) REFERENCES mangas(id) ON DELETE CASCADE
+);
+
+-- ==============================
+--    TABLE : READING HISTORY
+-- ==============================
+CREATE TABLE reading_history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    manga_id INT NOT NULL,
+    chapter_id INT NOT NULL,
+    last_read_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_history (user_id, manga_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (manga_id) REFERENCES mangas(id) ON DELETE CASCADE,
+    FOREIGN KEY (chapter_id) REFERENCES chapters(id) ON DELETE CASCADE
+);
+
+-- ==============================
+--   TABLE : SUBSCRIPTION PAYMENTS
+-- ==============================
+CREATE TABLE subscription_payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    plan ENUM('epique', 'legende', 'mythic') NOT NULL,
+    status ENUM('paid', 'pending', 'failed') DEFAULT 'pending',
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- ==============================
+--            INDEXES
+-- ==============================
 CREATE INDEX idx_manga_title ON mangas(title);
+
 CREATE INDEX idx_chapters_manga ON chapters(manga_id, number);
 CREATE INDEX idx_pages_chapter ON chapter_pages(chapter_id, page_number);
 
@@ -107,5 +181,3 @@ CREATE INDEX idx_ratings_value ON ratings(rating);
 CREATE INDEX idx_chapters_date ON chapters(manga_id, release_date);
 
 CREATE INDEX idx_reviews_date ON reviews(manga_id, created_at);
-
-ALTER TABLE mangas ADD COLUMN banner_url VARCHAR(255) AFTER cover_url;

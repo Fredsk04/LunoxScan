@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Login = ({ onSwitchToRegister }) => {
   const [formData, setFormData] = useState({
@@ -15,10 +15,11 @@ const Login = ({ onSwitchToRegister }) => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:4000/api/login", {
+      const response = await fetch("http://localhost:4000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, rememberMe }),
+        credentials: "include",
+        body: JSON.stringify({ email: formData.identifier, password: formData.password, rememberMe }),
       });
 
       const data = await response.json();
@@ -26,34 +27,25 @@ const Login = ({ onSwitchToRegister }) => {
       if (!response.ok) {
         setError(data.message || "Erreur de connexion");
       } else {
-        if (rememberMe) {
-          localStorage.setItem("token", data.token);
-        } else {
-          sessionStorage.setItem("token", data.token);
-        }
-        alert("Connexion réussie ✅");
+        // 🔥 Sauvegarde du token et redirection
+        localStorage.setItem("token", data.token);
         window.location.href = "/";
       }
     } catch (err) {
       setError("Impossible de contacter le serveur");
-    } finally {
-      setLoading(false);
     }
+
+    setLoading(false);
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <div className="login-container">
-      <h2>
-        <i className="fas fa-sign-in-alt"></i> Connexion
-      </h2>
-      
+      <h2><i className="fas fa-sign-in-alt"></i> Connexion</h2>
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -63,7 +55,7 @@ const Login = ({ onSwitchToRegister }) => {
           onChange={handleChange}
           required
         />
-        
+
         <input
           type="password"
           name="password"
@@ -76,12 +68,9 @@ const Login = ({ onSwitchToRegister }) => {
         <div
           style={{
             display: "flex",
-            alignItems: "center",
             justifyContent: "center",
             marginTop: "10px",
-            fontSize: "14px",
             gap: "6px",
-            whiteSpace: "nowrap",
           }}
         >
           <input
@@ -89,39 +78,25 @@ const Login = ({ onSwitchToRegister }) => {
             checked={rememberMe}
             onChange={(e) => setRememberMe(e.target.checked)}
             style={{
-              margin: 0,
-              padding: 0,
               width: "14px",
               height: "14px",
               accentColor: "#7C3AED",
             }}
           />
-          <label htmlFor="rememberMe"
-            style={{
-              cursor: "pointer",
-              userSelect: "none",
-              margin: 0,
-              color: "#333",
-            }}>
-            Se souvenir de moi
-          </label>
+          <label style={{ color: "#333" }}>Se souvenir de moi</label>
         </div>
 
-        <button type="submit" onClick={handleSubmit}
-          style={{
-            marginTop: "10px",
-          }}
-        >
-          Se connecter
+        <button type="submit" disabled={loading} style={{ marginTop: "10px" }}>
+          {loading ? "Connexion..." : "Se connecter"}
         </button>
       </form>
 
-      <p style={{marginTop: '10px', fontSize: '14px'}}>
-        <a href="#" style={{color: '#6b21a8', textDecoration: 'none', fontWeight: 'bold'}}>
+      <p style={{ marginTop: '10px', fontSize: '14px' }}>
+        <a href="#" style={{ color: '#6b21a8', textDecoration: 'none', fontWeight: 'bold' }}>
           Mot de passe oublié ?
         </a>
       </p>
-      
+
       <p className="register-link">
         Pas encore de compte ?{' '}
         <a href="#" onClick={(e) => { e.preventDefault(); onSwitchToRegister(); }}>
@@ -131,4 +106,5 @@ const Login = ({ onSwitchToRegister }) => {
     </div>
   );
 };
-export default Login
+
+export default Login;
