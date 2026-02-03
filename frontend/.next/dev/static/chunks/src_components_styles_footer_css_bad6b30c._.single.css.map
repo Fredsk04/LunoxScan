@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/styles/footer.css"],"sourcesContent":[".footer {\n  background: #000;\n  color: #bbb;\n  text-align: center;\n  padding: 2rem 1rem;\n  border-top: 1px solid rgba(255, 255, 255, 0.1);\n}\n\n.footer-content {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.6rem;\n}\n\n.footer-links {\n  display: flex;\n  gap: 1.2rem;\n  font-size: 1.4rem;\n}\n\n.footer-links a {\n  color: white;\n  transition: color 0.3s ease;\n}\n\n.footer-links a:hover {\n  color: #9d4edd;\n}\n\n.footer-copy {\n  font-size: 0.85rem;\n  color: #aaa;\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;AAQA;;;;;;;AAOA;;;;;;AAMA;;;;;AAKA;;;;AAIA"}}]
-}
