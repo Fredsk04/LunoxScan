@@ -34,33 +34,48 @@ export default function ProfilePage() {
             }
 
             try {
+                console.log("Fetching profile data with token:", token ? "Present" : "Missing");
                 // Fetch User
-                const userRes = await fetch("http://localhost:4000/api/profile", {
+                const userRes = await fetch("/api/profile", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 if (userRes.ok) {
                     const data = await userRes.json();
+                    console.log("User data fetched:", data);
                     setUser(data);
                 } else {
+                    console.error("User fetch failed:", userRes.status);
                     localStorage.removeItem("token");
                     window.location.href = "/auth";
                     return;
                 }
 
                 // Fetch Watchlist
-                const wlRes = await fetch("http://localhost:4000/api/watchlist", {
+                const wlRes = await fetch("/api/watchlist", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                if (wlRes.ok) setWatchlist(await wlRes.json());
+                if (wlRes.ok) {
+                    const wlData = await wlRes.json();
+                    console.log("Watchlist fetched:", wlData);
+                    setWatchlist(wlData);
+                } else {
+                    console.error("Watchlist fetch failed:", wlRes.status);
+                }
 
                 // Fetch Favorites
-                const favRes = await fetch("http://localhost:4000/api/favorites", {
+                const favRes = await fetch("/api/favorites", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                if (favRes.ok) setFavorites(await favRes.json());
+                if (favRes.ok) {
+                    const favData = await favRes.json();
+                    console.log("Favorites fetched:", favData);
+                    setFavorites(favData);
+                } else {
+                    console.error("Favorites fetch failed:", favRes.status);
+                }
 
                 // Fetch History
-                const histRes = await fetch("http://localhost:4000/api/history", {
+                const histRes = await fetch("/api/history", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 if (histRes.ok) setHistory(await histRes.json());
@@ -84,7 +99,7 @@ export default function ProfilePage() {
 
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch("http://localhost:4000/api/profile/avatar", {
+            const res = await fetch("/api/profile/avatar", {
                 method: "PUT",
                 headers: { Authorization: `Bearer ${token}` },
                 body: formData,
@@ -102,7 +117,7 @@ export default function ProfilePage() {
     const handleUpdateProfile = async () => {
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch("http://localhost:4000/api/profile", {
+            const res = await fetch("/api/profile", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -127,7 +142,7 @@ export default function ProfilePage() {
 
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch("http://localhost:4000/api/profile", {
+            const res = await fetch("/api/profile", {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -159,7 +174,7 @@ export default function ProfilePage() {
                             <div className="relative w-32 h-32 mx-auto mb-6 group">
                                 <div className="w-full h-full rounded-2xl overflow-hidden bg-white/5 border border-white/10">
                                     {user?.avatar_url ? (
-                                        <img src={`http://localhost:4000${user.avatar_url}`} alt={user.username} className="w-full h-full object-cover" />
+                                        <img src={`${user.avatar_url}`} alt={user.username} className="w-full h-full object-cover" />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center bg-primary/20 text-primary text-4xl font-bold">
                                             {user?.username?.charAt(0).toUpperCase()}
@@ -266,7 +281,7 @@ export default function ProfilePage() {
                                             <span className="text-sm text-white/40 font-medium">{watchlist.length} Items</span>
                                         </div>
                                         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-6">
-                                            {watchlist.map((item) => (
+                                            {Array.isArray(watchlist) && watchlist.map((item) => (
                                                 <MangaCard
                                                     key={item.id}
                                                     id={item.id.toString()}
@@ -275,7 +290,7 @@ export default function ProfilePage() {
                                                     rating={4.8}
                                                 />
                                             ))}
-                                            {watchlist.length === 0 && (
+                                            {(!watchlist || watchlist.length === 0) && (
                                                 <p className="col-span-full text-center py-20 text-white/20 font-bold italic uppercase tracking-widest underline decoration-primary/30">Your watchlist is empty</p>
                                             )}
                                         </div>
@@ -289,7 +304,7 @@ export default function ProfilePage() {
                                             <span className="text-sm text-white/40 font-medium">{favorites.length} Items</span>
                                         </div>
                                         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-6">
-                                            {favorites.map((item) => (
+                                            {Array.isArray(favorites) && favorites.map((item) => (
                                                 <MangaCard
                                                     key={item.id}
                                                     id={item.id.toString()}
@@ -298,7 +313,7 @@ export default function ProfilePage() {
                                                     rating={4.8}
                                                 />
                                             ))}
-                                            {favorites.length === 0 && (
+                                            {(!favorites || favorites.length === 0) && (
                                                 <p className="col-span-full text-center py-20 text-white/20 font-bold italic uppercase tracking-widest underline decoration-primary/30">Your favorites list is empty</p>
                                             )}
                                         </div>

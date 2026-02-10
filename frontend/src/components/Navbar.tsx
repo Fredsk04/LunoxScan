@@ -20,7 +20,7 @@ const Navbar = () => {
             const token = localStorage.getItem("token");
             if (token) {
                 try {
-                    const res = await fetch("http://localhost:4000/api/auth/me", {
+                    const res = await fetch("/api/auth/me", {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     if (res.ok) {
@@ -128,8 +128,12 @@ const Navbar = () => {
                     </Link>
                     {user ? (
                         <div className="relative group">
-                            <button className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center hover:bg-primary/30 transition-all border border-primary/30">
-                                <User size={20} className="text-primary" />
+                            <button className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center hover:bg-primary/30 transition-all border border-primary/30 overflow-hidden">
+                                {user?.avatar_url ? (
+                                    <img src={`${user.avatar_url}`} alt={user.username} className="w-full h-full object-cover" />
+                                ) : (
+                                    <User size={20} className="text-primary" />
+                                )}
                             </button>
                             <div className="absolute right-0 mt-2 w-48 glass rounded-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right group-hover:scale-100 scale-95 z-[60]">
                                 <div className="px-4 py-3 border-b border-white/5 mb-2 text-center">

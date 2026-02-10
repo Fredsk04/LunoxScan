@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Eye, Star } from "lucide-react";
 import Link from "next/link";
 
@@ -36,6 +36,24 @@ const MOST_VIEWED = [
 
 export const MostViewed = () => {
     const [activeTab, setActiveTab] = useState("manga");
+    const [mostViewed, setMostViewed] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchMostViewed = async () => {
+            try {
+                const res = await fetch("/api/mangas");
+                if (res.ok) {
+                    const data = await res.json();
+                    // Sort by views descending and take top 3
+                    const sorted = data.sort((a: any, b: any) => (b.views || 0) - (a.views || 0)).slice(0, 3);
+                    setMostViewed(sorted);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        fetchMostViewed();
+    }, []);
 
     return (
         <section className="py-12 bg-card/20 border-y border-white/5">
@@ -69,16 +87,16 @@ export const MostViewed = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {MOST_VIEWED.map((item) => (
+                    {mostViewed.map((item, index) => (
                         <Link key={item.id} href={`/series/${item.id}`} className="relative group flex items-center gap-6 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all duration-300">
                             {/* Rank Number Background */}
                             <div className="absolute -left-4 -top-4 text-8xl font-black text-white/5 select-none pointer-events-none group-hover:text-primary/10 transition-colors">
-                                {item.rank}
+                                0{index + 1}
                             </div>
 
                             {/* Cover Image */}
                             <div className="relative w-24 h-24 shrink-0 rounded-xl overflow-hidden border-2 border-primary/20">
-                                <img src={item.cover} alt={item.title} className="w-full h-full object-cover" />
+                                <img src={item.cover_url} alt={item.title} className="w-full h-full object-cover" />
                             </div>
 
                             {/* Info */}
@@ -89,15 +107,15 @@ export const MostViewed = () => {
                                 <div className="flex items-center gap-4">
                                     <span className="flex items-center gap-1 text-xs text-secondary-foreground font-medium">
                                         <Eye size={12} className="text-primary" />
-                                        {item.views}
+                                        {(item.views || 0).toLocaleString()}
                                     </span>
                                     <span className="flex items-center gap-1 text-xs text-secondary-foreground font-medium">
                                         <Star size={12} className="text-yellow-400 fill-yellow-400" />
-                                        {item.rating}
+                                        4.8
                                     </span>
                                 </div>
                                 <span className="mt-1 text-[10px] uppercase font-bold tracking-wider text-primary">
-                                    {item.status}
+                                    {item.status || "Ongoing"}
                                 </span>
                             </div>
                         </Link>

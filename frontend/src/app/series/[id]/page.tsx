@@ -3,10 +3,11 @@
 import Navbar from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Star, Play, Bookmark, Share2, MessageSquare, Clock, BookOpen, ChevronRight, Heart } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { motion } from "framer-motion";
 
-export default function SeriesDetails({ params }: { params: { id: string } }) {
+export default function SeriesDetails({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params);
     const [series, setSeries] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [isBookmarked, setIsBookmarked] = useState(false);
@@ -17,7 +18,7 @@ export default function SeriesDetails({ params }: { params: { id: string } }) {
         const fetchSeries = async () => {
             const token = localStorage.getItem("token");
             try {
-                const res = await fetch(`http://localhost:4000/api/mangas/${params.id}`);
+                const res = await fetch(`/api/mangas/${id}`);
                 if (res.ok) {
                     const data = await res.json();
                     setSeries(data);
@@ -25,22 +26,22 @@ export default function SeriesDetails({ params }: { params: { id: string } }) {
 
                 if (token) {
                     const [wlRes, favRes] = await Promise.all([
-                        fetch("http://localhost:4000/api/watchlist", {
+                        fetch("/api/watchlist", {
                             headers: { Authorization: `Bearer ${token}` }
                         }),
-                        fetch("http://localhost:4000/api/favorites", {
+                        fetch("/api/favorites", {
                             headers: { Authorization: `Bearer ${token}` }
                         })
                     ]);
 
                     if (wlRes.ok) {
                         const wl = await wlRes.json();
-                        setIsBookmarked(wl.some((m: any) => m.id.toString() === params.id));
+                        setIsBookmarked(wl.some((m: any) => m.id.toString() === id));
                     }
 
                     if (favRes.ok) {
                         const fav = await favRes.json();
-                        setIsFavorited(fav.some((m: any) => m.id.toString() === params.id));
+                        setIsFavorited(fav.some((m: any) => m.id.toString() === id));
                     }
                 }
             } catch (e) {
@@ -50,7 +51,7 @@ export default function SeriesDetails({ params }: { params: { id: string } }) {
             }
         };
         fetchSeries();
-    }, [params.id]);
+    }, [id]);
 
     const toggleBookmark = async () => {
         const token = localStorage.getItem("token");
@@ -61,21 +62,27 @@ export default function SeriesDetails({ params }: { params: { id: string } }) {
 
         try {
             if (isBookmarked) {
-                const res = await fetch(`http://localhost:4000/api/watchlist/${params.id}`, {
+                const res = await fetch(`/api/watchlist/${id}`, {
                     method: "DELETE",
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 if (res.ok) setIsBookmarked(false);
+                else {
+                    console.error("Bookmark delete failed", await res.text());
+                }
             } else {
-                const res = await fetch(`http://localhost:4000/api/watchlist`, {
+                const res = await fetch(`/api/watchlist`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`
                     },
-                    body: JSON.stringify({ manga_id: params.id })
+                    body: JSON.stringify({ manga_id: id })
                 });
                 if (res.ok) setIsBookmarked(true);
+                else {
+                    console.error("Bookmark add failed", await res.text());
+                }
             }
         } catch (e) {
             console.error(e);
@@ -90,22 +97,29 @@ export default function SeriesDetails({ params }: { params: { id: string } }) {
         }
 
         try {
+            console.log("Toggling favorite. Current state:", isFavorited, "Manga ID:", id);
             if (isFavorited) {
-                const res = await fetch(`http://localhost:4000/api/favorites/${params.id}`, {
+                const res = await fetch(`/api/favorites/${id}`, {
                     method: "DELETE",
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 if (res.ok) setIsFavorited(false);
+                else console.error("Favorite delete failed", await res.text());
             } else {
-                const res = await fetch(`http://localhost:4000/api/favorites`, {
+                const res = await fetch(`/api/favorites`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`
                     },
-                    body: JSON.stringify({ manga_id: params.id })
+                    body: JSON.stringify({ manga_id: id })
                 });
-                if (res.ok) setIsFavorited(true);
+                if (res.ok) {
+                    setIsFavorited(true);
+                    console.log("Favorite added successfully");
+                } else {
+                    console.error("Favorite add failed", await res.text());
+                }
             }
         } catch (e) {
             console.error(e);
@@ -170,15 +184,15 @@ export default function SeriesDetails({ params }: { params: { id: string } }) {
                                 </button>
                                 <button
                                     onClick={toggleBookmark}
-                                    className={`w-14 h-14 glass flex items-center justify-center rounded-2xl transition-all ${isBookmarked ? 'bg-primary border-primary shadow-lg shadow-primary/30' : 'hover:bg-white/10'}`}
+                                    className={`w-14 h-14 glass flex items-center justify-center rounded-2xl transition-all ${isBookmarked ? 'border-primary/50 bg-primary/10 shadow-[0_0_20px_rgba(124,58,237,0.2)]' : 'hover:bg-white/10'}`}
                                 >
-                                    <Bookmark size={24} className={isBookmarked ? 'fill-white' : ''} />
+                                    <Bookmark size={24} className={`transition-all ${isBookmarked ? 'fill-primary text-primary' : 'text-white'}`} />
                                 </button>
                                 <button
                                     onClick={toggleFavorite}
-                                    className={`w-14 h-14 glass flex items-center justify-center rounded-2xl transition-all ${isFavorited ? 'bg-red-500 border-red-500 shadow-lg shadow-red-500/30' : 'hover:bg-white/10'}`}
+                                    className={`w-14 h-14 glass flex items-center justify-center rounded-2xl transition-all ${isFavorited ? 'border-primary/50 bg-primary/10 shadow-[0_0_20px_rgba(124,58,237,0.2)]' : 'hover:bg-white/10'}`}
                                 >
-                                    <Heart size={24} className={isFavorited ? 'fill-white' : ''} />
+                                    <Heart size={24} className={`transition-all ${isFavorited ? 'fill-primary text-primary' : 'text-white'}`} />
                                 </button>
                                 <button className="w-14 h-14 glass flex items-center justify-center rounded-2xl hover:bg-white/10 transition-all">
                                     <Share2 size={24} />

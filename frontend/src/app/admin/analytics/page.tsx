@@ -15,7 +15,7 @@ export default function AnalyticsPage() {
     const fetchAnalytics = async () => {
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch("http://localhost:4000/api/admin/stats", {
+            const res = await fetch("/api/admin/stats", {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.ok) {

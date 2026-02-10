@@ -25,7 +25,7 @@ export const DiscoverySection = () => {
             const token = localStorage.getItem("token");
             if (token) {
                 try {
-                    const res = await fetch("http://localhost:4000/api/auth/me", {
+                    const res = await fetch("/api/auth/me", {
                         headers: { Authorization: `Bearer ${token}` }
                     });
                     if (res.ok) {
@@ -43,7 +43,7 @@ export const DiscoverySection = () => {
 
     const fetchRecommendations = async () => {
         try {
-            const res = await fetch("http://localhost:4000/api/mangas");
+            const res = await fetch("/api/mangas");
             if (res.ok) {
                 const data = await res.json();
                 // Get 5 random mangas

@@ -25,7 +25,7 @@ export default function ProtectedWrapper({ children }: { children: React.ReactNo
       // If token exists, we should often verify it, especially on sensitive routes or /auth
       if (token) {
         try {
-          const res = await fetch('http://localhost:4000/api/auth/me', {
+          const res = await fetch('/api/auth/me', {
             headers: {
               'Authorization': `Bearer ${token}`
             }

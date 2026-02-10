@@ -24,7 +24,7 @@ export default function AddMangaPage() {
         const token = localStorage.getItem("token");
 
         try {
-            const res = await fetch("http://localhost:4000/api/admin/manga", {
+            const res = await fetch("/api/admin/manga", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

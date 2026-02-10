@@ -26,7 +26,7 @@ export default function AdminDashboard() {
 
     const fetchGenres = async () => {
         try {
-            const res = await fetch("http://localhost:4000/api/genres");
+            const res = await fetch("/api/genres");
             if (res.ok) {
                 const data = await res.json();
                 setGenres(data);
@@ -46,10 +46,10 @@ export default function AdminDashboard() {
         const fetchStats = async () => {
             try {
                 const [statsRes, userRes] = await Promise.all([
-                    fetch("http://localhost:4000/api/admin/stats", {
+                    fetch("/api/admin/stats", {
                         headers: { Authorization: `Bearer ${token}` }
                     }),
-                    fetch("http://localhost:4000/api/auth/me", {
+                    fetch("/api/auth/me", {
                         headers: { Authorization: `Bearer ${token}` }
                     })
                 ]);
@@ -79,7 +79,7 @@ export default function AdminDashboard() {
         if (!newGenre) return;
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch("http://localhost:4000/api/genres", {
+            const res = await fetch("/api/genres", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -99,7 +99,7 @@ export default function AdminDashboard() {
     const handleDeleteGenre = async (id: number) => {
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch(`http://localhost:4000/api/genres/${id}`, {
+            const res = await fetch(`/api/genres/${id}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -158,8 +158,12 @@ export default function AdminDashboard() {
                 <div className="p-4 border-t border-white/5 mt-auto">
                     <div className="p-4 glass rounded-2xl flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary text-xs font-bold uppercase">
-                                {user?.username?.charAt(0)}
+                            <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary text-xs font-bold uppercase overflow-hidden">
+                                {user?.avatar_url ? (
+                                    <img src={`${user.avatar_url}`} alt={user.username} className="w-full h-full object-cover" />
+                                ) : (
+                                    user?.username?.charAt(0)
+                                )}
                             </div>
                             <div>
                                 <p className="text-xs font-bold truncate max-w-[80px]">{user?.username}</p>
@@ -286,6 +290,7 @@ export default function AdminDashboard() {
                         </div>
                     </div>
 
+
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
                         {/* Genre Management */}
                         <div className="glass rounded-[2.5rem] p-10 flex flex-col">
@@ -315,11 +320,49 @@ export default function AdminDashboard() {
                             </div>
                         </div>
 
-                        <div className="glass rounded-[2.5rem] p-10 flex flex-col items-center justify-center min-h-[300px] text-center">
-                            <BarChart3 size={48} className="text-white/10 mb-6" />
-                            <h2 className="text-2xl font-black uppercase italic mb-2 tracking-tighter">Detailed Analytics Integration</h2>
-                            <p className="text-white/40 text-sm max-w-md">The system is gathering more data to generate advanced traffic and retention charts. Check back in 24 hours.</p>
-                            <button className="mt-8 px-8 py-3 bg-white/5 border border-white/10 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all">System Status</button>
+                        {/* Recent Reports / System Status */}
+                        <div className="glass rounded-[2.5rem] p-10 flex flex-col">
+                            <div className="flex items-center justify-between mb-8">
+                                <h3 className="font-black uppercase tracking-tighter text-sm">System & Reports</h3>
+                                <div className="flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                    <span className="text-[10px] font-bold text-green-500 uppercase tracking-widest">Operational</span>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4 mb-6">
+                                <div className="p-4 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 rounded-lg bg-yellow-500/20 flex items-center justify-center text-yellow-500">
+                                            <Bell size={16} />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-bold">New User Report</p>
+                                            <p className="text-[10px] text-white/40">Regarding comment #892</p>
+                                        </div>
+                                    </div>
+                                    <button className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-colors">Review</button>
+                                </div>
+                                <div className="p-4 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-500">
+                                            <Settings size={16} />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-bold">System Backup</p>
+                                            <p className="text-[10px] text-white/40">Completed 2 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest">Done</span>
+                                </div>
+                            </div>
+
+                            <div className="mt-auto flex items-center justify-center min-h-[100px] bg-primary/5 rounded-2xl border border-primary/10">
+                                <div className="text-center">
+                                    <BarChart3 size={24} className="text-primary mx-auto mb-2" />
+                                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest">Analytics Online</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

@@ -11,7 +11,7 @@ export const NewReleases = () => {
     useEffect(() => {
         const fetchNewReleases = async () => {
             try {
-                const res = await fetch("http://localhost:4000/api/mangas");
+                const res = await fetch("/api/mangas");
                 if (res.ok) {
                     const data = await res.json();
                     // Get the 6 most recent mangas

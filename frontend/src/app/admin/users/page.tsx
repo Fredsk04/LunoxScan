@@ -15,7 +15,7 @@ export default function UsersManagementPage() {
     const fetchUsers = async () => {
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch("http://localhost:4000/api/admin/users", {
+            const res = await fetch("/api/admin/users", {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.ok) {
@@ -32,7 +32,7 @@ export default function UsersManagementPage() {
     const handleRoleChange = async (userId: number, newRole: string) => {
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch(`http://localhost:4000/api/admin/users/${userId}/role`, {
+            const res = await fetch(`/api/admin/users/${userId}/role`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export default function UsersManagementPage() {
 
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch(`http://localhost:4000/api/admin/users/${userId}`, {
+            const res = await fetch(`/api/admin/users/${userId}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
             });

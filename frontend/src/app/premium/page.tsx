@@ -51,7 +51,7 @@ export default function PremiumPage() {
 
         // Simulation de paiement
         try {
-            const res = await fetch("http://localhost:4000/api/subscription", {
+            const res = await fetch("/api/subscription", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

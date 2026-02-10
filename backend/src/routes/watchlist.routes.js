@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.post("/", protect, addWatchlist);
 router.get("/", protect, getWatchlist);
-router.delete("/:mangaId", protect, removeWatchlist);
+router.delete("/:manga_id", protect, removeWatchlist);
 
 export default router;

@@ -23,7 +23,7 @@ export default function CataloguePage() {
     useEffect(() => {
         const fetchGenres = async () => {
             try {
-                const res = await fetch("http://localhost:4000/api/genres");
+                const res = await fetch("/api/genres");
                 if (res.ok) {
                     const data = await res.json();
                     setGenres(["All", ...data.map((g: any) => g.name)]);
@@ -45,8 +45,8 @@ export default function CataloguePage() {
             setLoading(true);
             try {
                 const url = searchQuery
-                    ? `http://localhost:4000/api/mangas/search?q=${searchQuery}`
-                    : `http://localhost:4000/api/mangas`;
+                    ? `/api/mangas/search?q=${searchQuery}`
+                    : `/api/mangas`;
                 const res = await fetch(url);
                 if (res.ok) {
                     const data = await res.json();
